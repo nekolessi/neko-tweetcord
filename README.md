@@ -128,7 +128,7 @@ If you see the bot log in and come online in Discord: **Congratulations! You did
 | `ImportError: No module named...` | You forgot to activate the virtual environment or run pip | Run `pip install -r requirements.txt` again |
 | `TweetyAuthError` / rate limit loop | Your Twitter `auth_token` expired or got logged out | Log back into X on your burner, grab a fresh cookie, update `.env` |
 | Bot is online but not posting | Missing channel permissions | Give the bot `Send Messages`, `Embed Links`, and `Attach Files` permissions in Discord |
-| Nothing works and everything is on fire!! | Close your laptop, pet a cat (me), and try again in 10 minutes |
+| Nothing works and everything is on fire! | Cosmic rays or user clumsiness | Close your laptop, pet a cat (me), and try again in 10 minutes |
 
 ---
 
