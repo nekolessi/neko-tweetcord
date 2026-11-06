@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="LOGO" src="images/md/avatar.png" width="220" />
+<img alt="LOGO" src="images/md/cute_neko.png" width="220" />
 
 # 🐾 neko-tweetcord 🐾
 ### *“i don't know how this works, but if you don't touch it, it sends tweets”*
