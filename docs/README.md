@@ -1,318 +1,145 @@
 <div align="center">
 
-<a href="./AVATAR.md"><img alt="LOGO" src="/images/md/avatar.png" width="300" height="300" /></a>
-  
-# Tweetcord
+<img alt="LOGO" src="/images/md/avatar.png" width="220" />
 
-A Discord Bot for Twitter Notifications
+# 🐾 neko-tweetcord 🐾
+### *“i don't know how this works, but if you don't touch it, it sends tweets”*
 
-[![](https://img.shields.io/badge/python-3.11+-blue?logo=python&logoColor=white)](https://www.python.org/downloads/)
-[![](https://img.shields.io/github/v/release/Yuuzi261/Tweetcord?sort=semver)](https://github.com/Yuuzi261/Tweetcord/releases)
-[![](https://img.shields.io/github/release-date/Yuuzi261/Tweetcord)](https://github.com/Yuuzi261/Tweetcord/releases)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-ffb7c5?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![Discord.py](https://img.shields.io/badge/discord.py-2.0%2B-d8b4e2?style=flat-square&logo=discord&logoColor=white)](https://github.com/Rapptz/discord.py)
+[![tweety-ns](https://img.shields.io/badge/powered%20by-tweety--ns-a0c4ff?style=flat-square)](https://github.com/mahrtayyab/tweety)
+[![Braincells](https://img.shields.io/badge/braincells-1%2F2-ffadad?style=flat-square)](#)
+[![Status](https://img.shields.io/badge/status-barely%20holding%20together-ffd6a5?style=flat-square)](#)
 
-[**English**](./README.md) | [**繁體中文**](./README_zh.md)
+<p align="center">
+  A Discord notification bot for X (Twitter) using <code>tweety-ns</code>.<br>
+  Forked because I wanted my own custom setup and paying for the official Twitter API is not in my budget. Nya.
+</p>
+
+[✨ features](#-what-it-does) • [📦 setup](#-setup-for-fellow-girlfailures) • [⚙️ config](#️-env-configuration) • [💬 commands](#-slash-commands) • [🪦 troubleshooting](#-help-it-died) • [💖 credits](#-credits--upstream)
 
 </div>
 
-## 📝Introduction
+---
 
-Tweetcord is a Discord bot that leverages the [tweety-ns package](https://github.com/mahrtayyab/tweety) to provide real-time tweet updates from specific Twitter users directly to your Discord server. Simply configure the Twitter users and Discord channels you want to monitor, and Tweetcord will automatically forward tweets to the designated channels, ensuring you never miss important updates.🐦
+## ฅ^•ﻌ•^ฅ what is this?
 
-## ✨Features
+Welcome to my personal fork of **Tweetcord / neko-tweetcord**! 
 
-<details>
-   <summary>
+I am literally just a catgirl running on iced matcha, monster energy, 3 hours of sleep, and blind faith. The official X / Twitter API costs an arm and a leg, so this bot stealthily grabs updates using **`tweety-ns`** and throws them straight into Discord before I forget they exist.
 
-### Screenshots
+If you are looking for enterprise-grade, flawlessly orchestrated code... you are in the wrong place. But if you want tweets dumped into your Discord server with minimal tears, welcome home nya.
 
-   </summary>
-👇Whenever a followed user posts a new tweet, your server will receive an instant notification.
+---
 
-![](/images/md/screenshot.png)
+## ✨ what it does
 
-</details>
+- 📬 **Real-time X alerts:** Stalks monitors specified accounts and sends new tweets straight to your Discord channel.
+- 💸 **Zero API fees:** Uses `tweety-ns` (session auth cookies) so we don't have to give Elon our lunch money.
+- 🖼️ **Media & Embeds:** Forwards images, videos, and threads (with FixupX / vxtwitter proxy magic when embeds break).
+- 🪄 **Slash Commands:** Add, list, or delete tracked accounts right inside Discord without having to open the scary black terminal window again.
+- 🌐 **Multi-account support:** Support for multiple Twitter accounts to spread out rate limits!
 
-<details>
-   <summary>
+---
 
-### Commands
+## 📦 setup (for fellow girlfailures)
 
-   </summary>
+Don't panic! Grab a warm beverage and follow these steps slowly:
 
-👉 `/add notifier` `username` `channel` | `mention` `type` `media_type` `account_used`
-
-| Parameter | Type | Description |
-| --------- | ---- | ----------- |
-| `username` | str | The username of the twitter user you want to turn on notifications for |
-| `channel` | discord.TextChannel \| discord.Thread | The channel to which the bot delivers notifications |
-| `mention` | discord.Role | The role to mention when notifying |
-| `type` | str | Whether to enable notifications for retweets & quotes |
-| `media_type` | str | Whether to enable notifications that include media, or only enable notifications that include media |
-| `account_used` | str | The twitter client used by the bot to monitor the user's tweets |
-
-👉 `/remove notifier` `channel` `username`
-
-| Parameter | Type | Description |
-| --------- | ---- | ----------- |
-| `channel` | str | The channel id which set to delivers notifications |
-| `username` | str | The username of the twitter user you want to turn off notifications for |
-
-👉 `/list users` | `account` `channel`
-
-- List all twitter users whose notifications are enabled on the current server
-
-| Parameter | Type | Description |
-| --------- | ---- | ----------- |
-| `account` | str | The client name that you want to filter |
-| `channel` | str | The channel name that you want to filter |
-
-👉 `/sync`
-
-- Sync the notification of new Twitter account with database.  If you change the twitter account used by bot, please use this command
-
-👉 `/customize settings` `channel` `username`
-
-| Parameter | Type | Description |
-| --------- | ---- | ----------- |
-| `channel` | str | The channel id which set to delivers notifications |
-| `username` | str | The username of the twitter user you want to set customized settings |
-
-After sending the command, a settings panel will appear. Currently, you can modify `mention`, `type`, `media_type`, and custom notification messages. Note that `account_used` can still only be modified using the `/add notifier` command.
-
-Custom notification messages are in `f-string format`, currently supporting 4 special variables for use, which will be explained below.
-
-- `{action}` : poster's action (e.g. `tweeted`, `retweeted`, `quoted`). The displayed text depends on the `locale` setting in `configs.yml`
-- `{author}` : poster's display name
-- `{mention}` : the role to mention when sending to discord
-- `{url}` : the link of the tweet
-
-Using the default notification as an example, if the message is customized to the following format (supporting Discord's markdown format):
-
-```plaintext
-{mention}**{author}** just {action} here: 
-{url}
+### 1. Clone this dumpster fire
+```bash
+git clone https://github.com/nekolessi/neko-tweetcord.git
+cd neko-tweetcord
 ```
 
-The notification will be sent in this format when a tweet is posted (here is a real-world example):
+### 2. Make a virtual environment (so we don't break your system python)
+```bash
+# windows powershell
+python -m venv .venv
+.\.venv\Scripts\activate
 
-```plaintext
-@Ping_SubTweet ﾅﾁｮﾈｺ just tweeted here: 
-https://twitter.com/nyachodayo/status/1869000108697960952
+# linux / mac
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-👉 `/customize translation` `username` | `language`
-
-| Parameter | Type | Description |
-| --------- | ---- | ----------- |
-| `username` | str | The username of the tracked account you want to set customized translation language |
-| `language` | str | The language code you want to translate to (e.g. en, ja), leave it empty to use default. |
-
-Note: You need to set `auto_translation` to `true` in the `embed` settings to use this (only available when the `embed.type` is set to `built_in` mode or when `fx` is chosen as the embedding proxy service in `proxy` mode; other embedding proxy services do not support this feature).
-
-</details>
-
-## 📥Installation
-
-Before running the bot, you need to install the necessary packages.
-
-```shell
+### 3. Install requirements
+```bash
 pip install -r requirements.txt
 ```
+*(If pip gives red text, try running it again while whispering sweet nothings to your PC).*
 
-## ⚡Usage
+---
 
-**📢This tutorial applies to version 0.7.3 or higher. For settings of older versions, please refer to the README files of the respective historical versions.**
+## ⚙️ `.env` configuration
 
-### [⬆️View Version Upgrade Guides](./UPGRADE_GUIDE.md)
-
-### 1. Create and configure the .env file
+Copy `.env.example` to `.env`:
 
 ```env
-BOT_TOKEN=YourDiscordBotToken
-TWITTER_TOKEN=NameForYourTwitterToken:YourTwitterAccountAuthToken
+# 🤖 Discord Bot Token (from Discord Developer Portal — don't leak this or i will cry)
+BOT_TOKEN=your_discord_bot_token_here
+
+# 🍪 Your Twitter/X auth_token cookie: "AccountAlias:AuthTokenHex"
+# (Log in on your burner browser -> F12 -> Storage/Application -> Cookies -> 'auth_token')
+# Multiple accounts can be separated with commas: "Main:token1,Alt:token2"
+TWITTER_TOKEN=MainAccount:your_twitter_auth_token_here
+
+# 📂 Path where the bot stores tracked accounts & cache
 DATA_PATH=./data
 ```
 
-> [!NOTE]  
-> The `NameForYourTwitterToken` here can be freely defined. It is only used as an alias to specify the account when entering commands and does not need to match the Twitter account name.
+> [!WARNING]
+> **Use an alt / burner Twitter account!**  
+> Scraping with your main account's session cookie carries a risk of getting rate-limited or locked. Please don't risk your precious main account nya.
 
-#### Example
-```env
-BOT_TOKEN=FAKE1234567890ABCDEFGHIJKLMNO.PQRSTUVWXYZ1234567890.ABCDEFGHIJKLMNOPQRSTUVWXYZ123456
-TWITTER_TOKEN=Account1:12345abcde67890fghij12345klmnop67890qrstuv,Account2:abcdef123456ghijkl7890mnopqrst123456uvwx
-DATA_PATH=./data
-```
+---
 
-You can retrieve your auth token from cookies, or you can explore other methods to obtain it.
+## 🚀 running the bot
 
-### 2. Configure the configs.yml file
+### Windows (the easy way):
+Just double-click **`start.bat`**! It activates the venv and launches the bot automatically!
 
-Create `configs.yml` and copy the contents of `configs.example.yml` into it, and edit it to your liking. Please **DO NOT** delete or modify the contents of `configs.example.yml`. It serves as the default configuration and will be merged with your custom settings. If your custom configuration is incorrect or missing parameters, it will help revert to the default configuration and issue a warning.
-
-> [!IMPORTANT]
-> All configuration instructions here are synchronized with the latest version. For users of the old version, please refer to the old README.
-
-#### Base
-
-| Parameter | Description | Restriction |
-|-----------|-------------|-------------|
-| `locale` | The language used for bot messages and command descriptions. | Currently supports `en` and `zh-TW`. |
-| `prefix` | The prefix for bot commands, only effective for prefix commands. | None, but recommended to choose a simple and easily identifiable prefix and avoid using empty strings. |
-| `activity_name` | The activity name displayed by the bot. | None. |
-| `activity_type` | The activity type displayed by the bot. | `playing`, `streaming`, `listening`, `watching` and `competing` only. |
-| `users_list_pagination_size` | `list users` command's pagination size. | Only accepts integers, and it is not recommended to use too large or too small values. |
-| `users_list_page_counter_position` | `list users` command's pagination counter position. | `title` and `footer` only. |
-| `enable_prefix_commands_in_guild` | Whether to enable prefix commands in the server (disabling this option only affects prefix commands and does not affect any features. You can still DM the bot to use prefix commands to upload/backup databases or download logs). If `false`, you can disable the Message Content Intent. | Boolean. |
-| `use_existing_sessions_first` | Whether to prioritize connecting to an existing saved session on startup before authenticating with the auth token. If the auth token in the environment variables is updated, the bot will automatically detect it and re-authenticate. | Boolean. |
-
-Custom activity name is in `f-string` format, currently supporting 1 special variable for use, which will be explained below.
-
-- `{count}` : the number of users currently being monitored, it will be updated in real time
-
-#### Timer & Counter
-
-| Parameter | Description | Unit |
-|-----------|-------------|------|
-| `tweets_check_period` | The check frequency for the posts, it is not recommended to set this value too low to avoid rate limiting. Safety value: `18` [(why is this value?)](https://github.com/mahrtayyab/tweety/wiki/FAQs#twitter-new-limits), tests have shown that setting it to `10` usually doesn't cause rate limiting, not recommended below `10`. If the account controlled by Tweetcord is the same as the account you usually use, please increase the value appropriately to avoid rate limiting. | seconds |
-| `tweets_updater_retry_delay` | Retry Interval when Tweets Updater encounters exceptions. | minutes |
-| `tasks_monitor_check_period` | Interval at which to check if each tasks is functioning properly, and if a task has stopped, attempt a restart. | minutes |
-| `tasks_monitor_log_period` | Interval at which to output the list of currently running tasks to the execution log. | hours |
-| `notification_max_retries` | The maximum number of retry attempts when sending notification to Discord encounters transient errors (e.g. 503 Server Error, network timeout, connection reset). | times |
-| `notification_retry_delay` | The initial delay for exponential backoff between retry attempts when sending notification encounters transient errors (doubles after each failed retry). | seconds |
-| `auth_max_attempts` | The maximum number of attempts to log in to the Twitter account, if the number of failures exceeds this number, the bot will be forced to stop running. | times |
-
-#### Control Account Behavior
-
-| Parameter | Description |
-|-----------|-------------|
-| `auto_change_client` | If a new client is specified for an exisiting user, automatically use the new client to monitor the user. |
-| `auto_turn_off_notification` | If all notifications for a user is disabled, decide whether to disable notification for the user (twitter side). |
-| `auto_unfollow` | If all notifications for a user are disabled, decide whether to unfollow the user. |
-
-#### Database
-
-| Parameter | Description |
-|-----------|-------------|
-| `auto_repair_mismatched_clients` | Whether the system should automatically use the first client defined in the current environment variables to replace invalid `client_used` values in the database when they are not defined in the environment variables. |
-| `init_latest_tweet_on_startup` | At startup, set every user’s last tweet time to the current time. Enabling this option prevents the bot from sending notifications that were missed while it was offline (avoiding a flood of messages when it comes back online). |
-
-#### Embed Style
-
-| Parameter | Description |
-|-----------|-------------|
-| `type` | Determine the type of embed, supported types: `built_in` / `proxy`. |
-| `trans_default_lang` | The default language used for automatic translation when `auto_translation` is enabled. |
-
-##### built_in:
-
-| Parameter | Description |
-|-----------|-------------|
-| `fx` | Advanced settings for FixupX integration. The bot fetches new tweets from Twitter's notifications via Tweety. Since Twitter's notification API is older, there might be missing media and text for retweets and quoted tweets. By requesting from FixupX, more complete content can be obtained. When `media`, `rt_text` or `auto_translation` is enabled, an additional request to the FixupX API is made before sending each new tweet notification. If only `mosaic` is enabled independently, requests will only be made when necessary. See the detailed breakdown below. |
-| `video_link_button` | Determine whether to use a link button as a prompt when the media is a video. |
-| `legacy_logo` | If set to `true`, the footer will use Twitter's legacy bluebird logo instead of the new X emblem. |
-
-- **fx**
-  - `media.enabled`: Whether to fetch media within quoted tweets.
-  - `media.external`: Whether to fetch thumbnails from external links.
-  - `rt_text.enabled`: Whether to display the original text of quoted tweets. Enabling this will also show the full content for longer retweets.
-  - `rt_text.simplified`: Whether to simplify information when there is too much content (typically in quoted tweets). When enabled, it truncates part of the original quoted text for overly long messages and hides the thumbnail icon (right-side avatar) within the embed.
-  - `mosaic`: Whether to use FixupX's combined image when there are multiple images, friendly for iOS systems that cannot display multiple image embeddings.
-  - `auto_translation`: Whether to automatically translate tweet content to `trans_default_lang`.
-
-##### proxy:
-
-| Parameter | Description |
-|-----------|-------------|
-| `service` | The embedding proxy service to use when sending tweet links, can be [`fx`](https://github.com/FxEmbed/FxEmbed) or [`vx`](https://github.com/dylanpdx/BetterTwitFix). |
-| `domain_name` | The domain name to be used when sending tweet links. When using the `fx` service, options are `fxtwitter` or `fixupx`. When using the `vx` service, options are `vxtwitter` or `fixvx`. |
-| `original_url_button` | Add a link button at the bottom of the message that directs to the original tweet. This can resolve the issue where clicking a proxy service URL does not open the app on certain devices. |
-| `auto_translation` | Auto-translation settings when sending tweet links. This is only available when using the `fx` service (it will be automatically disabled for other proxy services). When enabled, the post will be translated to the language set in `trans_default_lang` by default. For details, please refer to [Translate Posts (X/Twitter)](https://docs.fxembed.com/guide/url-modifiers/translate). |
-
-> [!NOTE]
-> If you need support for more embedding proxy services, please let us know via an [Issue](https://github.com/Yuuzi261/Tweetcord/issues/new).
-
-#### Message
-
-| Parameter | Description |
-|-----------|-------------|
-| `default_message` | Set default message format globally, the format is the same as the customized message, use f-string and support 4 special variables. For details, please refer to [Commands](#commands). |
-| `emoji_auto_format` | For custom messages, whether to automatically convert short-format emoji codes. If enabled, it allows using codes like `:jerry:` to insert current server's emojis without needing to enter the full name `<:jerry:720576643583836181>`. |
-
-### 3. Run and invite the bot to your server
-
-```shell
+### Or in the terminal:
+```bash
 python bot.py
 ```
 
-#### Permissions Setup
+If you see the bot log in and come online in Discord: **Congratulations! You did it! Go take a nap, you earned it.** 🎉
 
-🔧Bot Permissions Setup (Permissions Integer): `2147666944`
+---
 
-| Enable | Permissions |
-|--------|-------------|
-| ✔️ | Read Messages/View Channels |
-| ✔️ | Send Messages |
-| ✔️ | Embed Links |
-| ✔️ | Attach Files |
-| ✔️ | Mention Everyone |
-| ✔️ | Use Slash Commands |
+## 💬 slash commands
 
-> [!NOTE]  
-> Please generate an invitation link with the default permissions on the [Discord Developer Portal](https://discord.com/developers/applications) rather than inviting the bot first and then manually adjusting its permissions.
+| Command | What it does |
+| :--- | :--- |
+| `/add notifier` | Start tracking a Twitter user in a channel (supports mentions & media filters) |
+| `/remove notifier` | Stop notifications for an account in a channel |
+| `/list users` | Show all Twitter users currently being tracked in the server |
+| `/customize settings` | Tweak notification format, roles to ping, and embed options |
+| `/customize translation` | Set translation language for foreign tweets |
+| `/sync` | Sync Twitter accounts with the local database |
 
-#### Privileged Gateway Intents Setup
+---
 
-| Enable | Intents |
-|--------|-------------|
-| ❌  | Presence Intent |
-| ❌ | Server Members Intent |
-| ⚠️ | Message Content Intent |
+## 🪦 help, it died
 
-If you disable `enable_prefix_commands_in_guild` in `configs.yml`, you can disable **Message Content Intent**. Otherwise, please enable it.
+| Symptom | Probable Cause | Fix |
+| :--- | :--- | :--- |
+| `ImportError: No module named...` | You forgot to activate the virtual environment or run pip | Run `pip install -r requirements.txt` again |
+| `TweetyAuthError` / rate limit loop | Your Twitter `auth_token` expired or got logged out | Log back into X on your burner, grab a fresh cookie, update `.env` |
+| Bot is online but not posting | Missing channel permissions | Give the bot `Send Messages`, `Embed Links`, and `Attach Files` permissions in Discord |
+| Nothing works and everything is on fire | Cosmic rays or clumsy cat paws | Close your laptop, pet a cat, and try again in 10 minutes |
 
-> [!NOTE]
-> If you want to host the bot on a server, here is a recommended service that is basically free: [fly.io](https://fly.io) _(update: fly.io has stopped offering free plans to new users)_
+---
 
-<details>
-   <summary><b>⚙️some configuration files you may need if you use fly.io</b></summary>
+## 💖 credits & upstream
 
-- dockerfile
+- **Original Project:** Forked from [Yuuzi261/Tweetcord](https://github.com/Yuuzi261/Tweetcord) by [Yuuzi261](https://github.com/Yuuzi261) — thank you for creating the foundation!
+- **Twitter Scraping:** Powered by [mahrtayyab/tweety](https://github.com/mahrtayyab/tweety) (`tweety-ns`).
+- **Fork Maintainer:** [nekolessi](https://github.com/nekolessi) — just a clumsy catgirl trying her best.
 
-```dockerfile
-FROM python:3.11.11
-WORKDIR /bot
-COPY requirements.txt /bot/
-RUN pip install -r requirements.txt
-COPY . /bot/
-CMD python bot.py
-```
+---
 
-- fly.toml
-
-```toml
-app = "YOUR_APP_NAME"
-primary_region = "YOUR_APP_REGION"
-
-[env]
-  DATA_PATH = "/data"
-
-[mounts]
-  source = "YOUR_APP_VOLUME_NAME"
-  destination = "/data"
-```
-
-</details>
-
-### 4. Have fun
-
-Now you can go back to Discord and use the `/add notifier` command to set up notifications for the Twitter users you wish to receive updates from!
-
-## 💪Contributors
-
-This project exists thanks to all the people who contribute.
-
-[![](https://contrib.rocks/image?repo=Yuuzi261/Tweetcord)](https://github.com/Yuuzi261/Tweetcord/graphs/contributors)
-
-This project also benefits from the creative contributions of artists who provide our logo.
-
-<a href="./AVATAR.md"><img alt="LOGO" src="/images/md/MarcoDK.png" width="64" height="64" /></a>
+<div align="center">
+  <sub>made with 🐾, poor life choices, and caffeine</sub>
+</div>
