@@ -13,7 +13,7 @@
 
 <p align="center">
   A Discord notification bot for X (Twitter) using <code>tweety-ns</code>.<br>
-  Forked because I wanted my own custom setup and paying for the official Twitter API is not in my budget. Nya.
+  Forked because I wanted my own custom setup and paying for the official Twitter API is not in my budget.
 </p>
 
 [✨ features](#-what-it-does) • [📦 setup](#-setup-for-fellow-girlfailures) • [⚙️ config](#️-env-configuration) • [💬 commands](#-slash-commands) • [🪦 troubleshooting](#-help-it-died) • [💖 credits](#-credits--upstream)
@@ -26,7 +26,7 @@
 
 Welcome to my personal fork of **Tweetcord / neko-tweetcord**! 
 
-I am literally just a catgirl running on iced matcha, monster energy, 3 hours of sleep, and blind faith. The official X / Twitter API costs an arm and a leg, so this bot stealthily grabs updates using **`tweety-ns`** and throws them straight into Discord before I forget they exist.
+The official X / Twitter API costs an arm and a leg, so this bot stealthily grabs updates using **`tweety-ns`** and throws them straight into Discord before I forget they exist.
 
 If you are looking for enterprise-grade, flawlessly orchestrated code... you are in the wrong place. But if you want tweets dumped into your Discord server with minimal tears, welcome home nya.
 
@@ -44,7 +44,7 @@ If you are looking for enterprise-grade, flawlessly orchestrated code... you are
 
 ## 📦 setup (for fellow girlfailures)
 
-Don't panic! Grab a warm beverage and follow these steps slowly:
+Don't panic! Grab a coffee and follow these steps slowly:
 
 ### 1. Clone this dumpster fire
 ```bash
@@ -52,7 +52,7 @@ git clone https://github.com/nekolessi/neko-tweetcord.git
 cd neko-tweetcord
 ```
 
-### 2. Make a virtual environment (so we don't break your system python)
+### 2. Make a virtual environment
 ```bash
 # windows powershell
 python -m venv .venv
@@ -90,7 +90,7 @@ DATA_PATH=./data
 
 > [!WARNING]
 > **Use an alt / burner Twitter account!**  
-> Scraping with your main account's session cookie carries a risk of getting rate-limited or locked. Please don't risk your precious main account nya.
+> Scraping with your main account's session cookie carries a risk of getting rate-limited or locked. Please don't risk your precious main account.
 
 ---
 
@@ -128,7 +128,7 @@ If you see the bot log in and come online in Discord: **Congratulations! You did
 | `ImportError: No module named...` | You forgot to activate the virtual environment or run pip | Run `pip install -r requirements.txt` again |
 | `TweetyAuthError` / rate limit loop | Your Twitter `auth_token` expired or got logged out | Log back into X on your burner, grab a fresh cookie, update `.env` |
 | Bot is online but not posting | Missing channel permissions | Give the bot `Send Messages`, `Embed Links`, and `Attach Files` permissions in Discord |
-| Nothing works and everything is on fire | Cosmic rays or clumsy cat paws | Close your laptop, pet a cat, and try again in 10 minutes |
+| Nothing works and everything is on fire!! | Close your laptop, pet a cat (me), and try again in 10 minutes |
 
 ---
 
@@ -141,5 +141,5 @@ If you see the bot log in and come online in Discord: **Congratulations! You did
 ---
 
 <div align="center">
-  <sub>made with 🐾, poor life choices, and caffeine</sub>
+  <sub>made with ❤️, catnip, and caffeine</sub>
 </div>
