@@ -16,7 +16,7 @@
   Forked because I wanted my own custom setup and paying for the official Twitter API is not in my budget.
 </p>
 
-[✨ features](#-what-it-does) • [📦 setup](#-setup-for-fellow-girlfailures) • [⚙️ config](#️-env-configuration) • [💬 commands](#-slash-commands) • [🪦 troubleshooting](#-help-it-died) • [💖 credits](#-credits--upstream)
+[✨ features](#-what-it-does) • [📦 setup](#-setup-for-fellow-girlfailures) • [⚙️ config](#️-env-configuration) • [💬 commands](#-slash-commands) • [🪦 troubleshooting](#-help-it-died) • [📖 upstream docs](./docs/README.md) • [💖 credits](#-credits--upstream)
 
 </div>
 
