@@ -2,7 +2,7 @@
 
 <img alt="LOGO" src="images/md/cute_neko.png" width="220" />
 
-# 🐾 neko-tweetcord 🐾
+# ❤️ neko-tweetcord ❤️
 ### *“i don't know how this works, but if you don't touch it, it sends tweets”*
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-ffb7c5?style=flat-square&logo=python&logoColor=white)](https://python.org)
